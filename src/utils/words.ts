@@ -10,3 +10,17 @@ export const isAnswerCorrect = (
   }
   return null;
 };
+
+export const exactlyThreeMatches = (
+  words: string[],
+  answers: AnswersData[]
+): boolean => {
+  for (const answer of answers) {
+    let matchCount = 0;
+    for (let i = 0; i < 4; i++)
+      if (words[i] === answer.members[i]) matchCount++;
+    console.log(matchCount);
+    if (matchCount === 3) return true;
+  }
+  return false;
+};
