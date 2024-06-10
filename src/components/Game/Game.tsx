@@ -60,21 +60,23 @@ const Game = ({ gameData, initialWords }: Props) => {
     orderedGuess.forEach((word, idx) =>
       setTimeout(() => setAnimatedWords((prev) => [...prev, word]), idx * 75)
     );
-    setTimeout(() => setAnimatedWords([]), 975);
+    setTimeout(() => {
+      setAnimatedWords([]);
 
-    const correctAnswer = isAnswerCorrect(guess, gameData);
-    if (correctAnswer) {
-      setWords(words.filter((word) => !guess.includes(word)));
-      setSelected([]);
-      setCorrect([...correct, correctAnswer]);
-    } else {
-      setGuessed([...guessed, guess]);
-      setAttempts((prev) => {
-        const newAttempts = prev - 1;
-        if (newAttempts === 0) endGame();
-        return newAttempts;
-      });
-    }
+      const correctAnswer = isAnswerCorrect(guess, gameData);
+      if (correctAnswer) {
+        setWords(words.filter((word) => !guess.includes(word)));
+        setSelected([]);
+        setCorrect([...correct, correctAnswer]);
+      } else {
+        setGuessed([...guessed, guess]);
+        setAttempts((prev) => {
+          const newAttempts = prev - 1;
+          if (newAttempts === 0) endGame();
+          return newAttempts;
+        });
+      }
+    }, 975);
   };
 
   return (
