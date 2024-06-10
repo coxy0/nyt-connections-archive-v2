@@ -1,0 +1,35 @@
+.boardActionsContainer {
+  display: flex;
+  gap: 0.625rem;
+  justify-content: center;
+}
+
+.boardActionButton {
+  min-width: 5.5em;
+  height: 3rem;
+  display: grid;
+  place-items: center;
+  font-size: 1em;
+  font-weight: 600;
+  text-align: center;
+  line-height: 1.5em;
+  background-color: white;
+  border-radius: 2rem;
+  border: 1px solid black;
+  cursor: pointer;
+}
+
+.boardActionButton:disabled {
+  border-color: #7f7f7f;
+  pointer-events: none;
+}
+
+.boardDeselectButton {
+  min-width: 7.5em;
+}
+
+.boardSubmitButton:not(:disabled) {
+  background-color: black;
+  color: white;
+  border: none;
+}

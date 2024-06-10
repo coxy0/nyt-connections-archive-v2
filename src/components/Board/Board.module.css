@@ -1,0 +1,11 @@
+@import "../../vars.css";
+
+.cardsContainer {
+  --card-gap: 8px;
+  width: calc(4 * var(--card-width) + 3 * var(--card-gap));
+  height: calc(4 * var(--card-height) + 3 * var(--card-gap));
+  margin: 1.5rem 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--card-gap);
+}

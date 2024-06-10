@@ -1,0 +1,20 @@
+.attemptsRemainingContainer {
+  margin-bottom: 1.5rem;
+  display: flex;
+  justify-content: center;
+}
+
+.attemptsRemainingBubblesContainer {
+  min-width: 7.5rem;
+  margin-left: 0.625rem;
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+}
+
+.attemptsRemainingBubble {
+  width: 1rem;
+  height: 1rem;
+  background-color: #5a594e;
+  border-radius: 50%;
+}

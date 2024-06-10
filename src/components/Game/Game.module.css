@@ -1,0 +1,10 @@
+.gameContainer {
+  width: fit-content;
+  margin: 1.5rem auto;
+}
+
+.gameText {
+  font-size: 1.125em;
+  font-weight: 400;
+  text-align: center;
+}
