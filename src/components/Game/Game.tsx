@@ -5,8 +5,8 @@ import Attempts from "../Attempts/Attempts";
 import Board from "../Board/Board";
 import Toast from "../Toast/Toast";
 import { AnswersData } from "../../utils/data";
+import { exactlyThreeMatches, isAnswerCorrect } from "../../utils/words";
 import { shuffleArray } from "../../utils/shuffleArray";
-import { isAnswerCorrect } from "../../utils/words";
 
 interface Props {
   gameData: AnswersData[];
@@ -70,6 +70,8 @@ const Game = ({ gameData, initialWords }: Props) => {
         setCorrect([...correct, correctAnswer]);
       } else {
         setGuessed([...guessed, guess]);
+        if (exactlyThreeMatches(guess, gameData)) showToast("One away...", 0);
+
         setAttempts((prev) => {
           const newAttempts = prev - 1;
           if (newAttempts === 0) endGame();
