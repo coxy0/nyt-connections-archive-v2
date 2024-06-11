@@ -7,6 +7,7 @@ import Toast from "../Toast/Toast";
 import { AnswersData } from "../../utils/data";
 import { exactlyThreeMatches, isAnswerCorrect } from "../../utils/words";
 import { shuffleArray } from "../../utils/shuffleArray";
+import Modal from "../Modal/Modal";
 
 interface Props {
   gameData: AnswersData[];
