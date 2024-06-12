@@ -1,0 +1,43 @@
+.congratsTitle {
+  margin: 0.5rem 0;
+  font-size: 2.25em;
+}
+
+.puzzleTitle {
+  font-size: 1.125em;
+  font-weight: 500;
+}
+
+.emojiRecap {
+  display: flex;
+  flex-direction: column;
+  margin: 0.625rem 0;
+}
+
+.resultsEmojiRow {
+  margin: auto;
+  display: flex;
+}
+
+.resultsEmoji {
+  width: 2rem;
+  height: 2rem;
+  margin: 0.125rem 0;
+  border-radius: 0.25rem;
+}
+
+.yellow {
+  background-color: #f9df6d;
+}
+
+.green {
+  background-color: #a0c35a;
+}
+
+.blue {
+  background-color: #b0c4ef;
+}
+
+.purple {
+  background-color: #ba81c5;
+}
