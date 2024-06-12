@@ -96,4 +96,5 @@
   background-color: transparent;
   background-image: url(https://www.nytimes.com/games-assets/v2/assets/icon-close.svg);
   border: none;
+  cursor: pointer;
 }
