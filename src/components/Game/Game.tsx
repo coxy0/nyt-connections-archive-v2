@@ -19,7 +19,8 @@ const Game = ({ gameData, initialWords }: Props) => {
   const [correct, setCorrect] = useState<AnswersData[]>([]);
   const [guessed, setGuessed] = useState<string[][]>([]);
   const [attempts, setAttempts] = useState(4);
-  const [animatedWords, setAnimatedWords] = useState<string[]>([]);
+  const [animatedChecking, setAnimatedChecking] = useState<string[]>([]);
+  const [animatedFail, setAnimatedFail] = useState<string[]>([]);
   const [toastVisible, setToastVisible] = useState(false);
   const [toastText, setToastText] = useState("");
 
@@ -58,10 +59,10 @@ const Game = ({ gameData, initialWords }: Props) => {
 
     const orderedGuess = words.filter((word) => guess.includes(word));
     orderedGuess.forEach((word, idx) =>
-      setTimeout(() => setAnimatedWords((prev) => [...prev, word]), idx * 75)
+      setTimeout(() => setAnimatedChecking((prev) => [...prev, word]), idx * 75)
     );
     setTimeout(() => {
-      setAnimatedWords([]);
+      setAnimatedChecking([]);
 
       const correctAnswer = isAnswerCorrect(guess, gameData);
       if (correctAnswer) {
@@ -70,6 +71,8 @@ const Game = ({ gameData, initialWords }: Props) => {
         setCorrect([...correct, correctAnswer]);
       } else {
         setGuessed([...guessed, guess]);
+        setAnimatedFail(guess);
+        setTimeout(() => setAnimatedFail([]), 200);
         if (exactlyThreeMatches(guess, gameData)) showToast("One away...", 0);
 
         setAttempts((prev) => {
@@ -78,7 +81,7 @@ const Game = ({ gameData, initialWords }: Props) => {
           return newAttempts;
         });
       }
-    }, 975);
+    }, 1000);
   };
 
   return (
@@ -89,7 +92,8 @@ const Game = ({ gameData, initialWords }: Props) => {
         selected={selected}
         onCardClick={onCardClick}
         correct={correct}
-        animatedWords={animatedWords}
+        animatedChecking={animatedChecking}
+        animatedFail={animatedFail}
       />
       <Attempts attempts={attempts} />
       <Actions

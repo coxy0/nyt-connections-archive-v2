@@ -13,8 +13,13 @@
   user-select: none;
 }
 
-.cardGuessAnim {
-  animation: upAndDown 0.75s;
+.cardSelected {
+  background-color: #5a594e;
+  color: white;
+}
+
+.cardCheckAnim {
+  animation: upAndDown 0.5s;
 }
 
 @keyframes upAndDown {
@@ -29,7 +34,24 @@
   }
 }
 
-.cardSelected {
-  background-color: #5a594e;
-  color: white;
+.cardFailAnim {
+  animation: leftToRight 0.2s;
+}
+
+@keyframes leftToRight {
+  0% {
+    transform: translateX(0px);
+  }
+  25% {
+    transform: translateX(-10px);
+  }
+  50% {
+    transform: translateX(0px);
+  }
+  75% {
+    transform: translateX(10px);
+  }
+  100% {
+    transform: translateX(0px);
+  }
 }

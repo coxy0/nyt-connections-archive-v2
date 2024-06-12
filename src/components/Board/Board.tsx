@@ -8,7 +8,8 @@ interface Props {
   words: string[];
   selected: string[];
   onCardClick: (word: string) => void;
-  animatedWords: string[];
+  animatedChecking: string[];
+  animatedFail: string[];
 }
 
 const Board = ({
@@ -16,7 +17,8 @@ const Board = ({
   words,
   selected,
   onCardClick,
-  animatedWords,
+  animatedChecking,
+  animatedFail,
 }: Props) => {
   return (
     <div className={styles.cardsContainer}>
@@ -30,7 +32,8 @@ const Board = ({
           selected={selected.includes(word)}
           onClick={() => onCardClick(word)}
           text={word}
-          animated={animatedWords.includes(word)}
+          checkAnimation={animatedChecking.includes(word)}
+          failAnimation={animatedFail.includes(word)}
         />
       ))}
     </div>

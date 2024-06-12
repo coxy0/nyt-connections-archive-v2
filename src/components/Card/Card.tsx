@@ -4,15 +4,22 @@ interface Props {
   selected: boolean;
   onClick: () => void;
   text: string;
-  animated: boolean;
+  checkAnimation: boolean;
+  failAnimation: boolean;
 }
 
-const Card = ({ selected, onClick, text, animated }: Props) => {
+const Card = ({
+  selected,
+  onClick,
+  text,
+  checkAnimation,
+  failAnimation,
+}: Props) => {
   return (
     <div
       className={`${styles.card} ${selected ? styles.cardSelected : ""} ${
-        animated ? styles.cardGuessAnim : ""
-      }`}
+        checkAnimation ? styles.cardCheckAnim : ""
+      } ${failAnimation ? styles.cardFailAnim : ""}`}
       onClick={onClick}
     >
       {text}
