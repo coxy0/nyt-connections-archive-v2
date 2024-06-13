@@ -72,7 +72,7 @@ const Game = ({ date, gameData, initialWords }: Props) => {
       showToast("Already guessed!", 0);
       return;
     }
-    setGuessColours((prev) => [...prev, getGuessColours(guess, gameData)]);
+    setGuessColours((prev) => [...prev, getGuessColours(selected, gameData)]);
 
     const orderedGuess = words.filter((word) => guess.includes(word));
     orderedGuess.forEach((word, idx) =>
@@ -97,7 +97,7 @@ const Game = ({ date, gameData, initialWords }: Props) => {
         setAnimatedFail(guess);
         setTimeout(() => setAnimatedFail([]), 200);
 
-        if (exactlyThreeMatches(guess, gameData)) showToast("One away...", 0);
+        if (exactlyThreeMatches(guess, gameData)) showToast("One away...", 250);
 
         setAttempts((prev) => {
           const newAttempts = prev - 1;
@@ -122,6 +122,7 @@ const Game = ({ date, gameData, initialWords }: Props) => {
       <Attempts attempts={attempts} />
       <Actions
         selected={selected}
+        guessing={animatedChecking.length > 0 || animatedFail.length > 0}
         onClickShuffle={() => setWords(shuffleArray(words))}
         onClickDeselect={() => setSelected([])}
         onClickSubmit={onClickSubmit}

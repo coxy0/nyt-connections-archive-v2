@@ -2,6 +2,7 @@ import styles from "./Actions.module.css";
 
 interface Props {
   selected: string[];
+  guessing: boolean;
   onClickShuffle: () => void;
   onClickDeselect: () => void;
   onClickSubmit: () => void;
@@ -9,6 +10,7 @@ interface Props {
 
 const Actions = ({
   selected,
+  guessing,
   onClickShuffle,
   onClickDeselect,
   onClickSubmit,
@@ -34,7 +36,7 @@ const Actions = ({
         type="button"
         className={`${styles.boardActionButton} ${styles.boardSubmitButton}`}
         onClick={onClickSubmit}
-        disabled={selected.length < 4}
+        disabled={selected.length < 4 || guessing}
       >
         Submit
       </button>
