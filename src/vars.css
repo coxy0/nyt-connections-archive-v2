@@ -2,3 +2,10 @@
   --card-width: 150px;
   --card-height: 80px;
 }
+
+@media (max-width: 640px) {
+  :root {
+    --card-width: 22.5vw;
+    --card-height: 22.5vw;
+  }
+}
