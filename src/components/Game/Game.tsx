@@ -37,7 +37,6 @@ const Game = ({ date, gameData, initialWords }: Props) => {
 
   const endGame = (failed: boolean) => {
     if (failed) showToast("Next time", 1500);
-    console.info(guessColours);
 
     setTimeout(() => {
       setWords([]);
