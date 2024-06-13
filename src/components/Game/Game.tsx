@@ -3,37 +3,52 @@ import { useState } from "react";
 import Actions from "../Actions/Actions";
 import Attempts from "../Attempts/Attempts";
 import Board from "../Board/Board";
+import ResultsModal from "../Modal/ResultsModal";
 import Toast from "../Toast/Toast";
 import { AnswersData } from "../../utils/data";
-import { exactlyThreeMatches, isAnswerCorrect } from "../../utils/words";
-import { shuffleArray } from "../../utils/shuffleArray";
+import {
+  exactlyThreeMatches,
+  getGuessColours,
+  isAnswerCorrect,
+} from "../../utils/words";
+import { shuffleArray } from "../../utils/shuffle";
 
 interface Props {
+  date: string;
   gameData: AnswersData[];
   initialWords: string[];
 }
 
-const Game = ({ gameData, initialWords }: Props) => {
+const Game = ({ date, gameData, initialWords }: Props) => {
   const [words, setWords] = useState(shuffleArray(initialWords));
   const [selected, setSelected] = useState<string[]>([]);
   const [correct, setCorrect] = useState<AnswersData[]>([]);
   const [guessed, setGuessed] = useState<string[][]>([]);
   const [attempts, setAttempts] = useState(4);
+
   const [animatedChecking, setAnimatedChecking] = useState<string[]>([]);
   const [animatedFail, setAnimatedFail] = useState<string[]>([]);
+
   const [toastVisible, setToastVisible] = useState(false);
   const [toastText, setToastText] = useState("");
+
+  const [guessColours, setGuessColours] = useState<string[][]>([]);
+  const [showResults, setShowResults] = useState(false);
 
   const showToast = (text: string, delay: number) => {
     setTimeout(() => {
       setToastVisible(true);
       setToastText(text);
-      setTimeout(() => setToastVisible(false), 2500);
+      setTimeout(() => {
+        setToastVisible(false);
+        setToastText("");
+      }, 2500);
     }, delay);
   };
 
-  const endGame = () => {
-    showToast("Next time", 1500);
+  const endGame = (failed: boolean) => {
+    if (failed) showToast("Next time", 1500);
+
     setTimeout(() => {
       setWords([]);
       setSelected([]);
@@ -41,6 +56,7 @@ const Game = ({ gameData, initialWords }: Props) => {
         ...correct,
         ...gameData.filter((data) => !correct.includes(data)),
       ]);
+      setTimeout(() => setShowResults(true), 500);
     }, 2500);
   };
 
@@ -56,11 +72,13 @@ const Game = ({ gameData, initialWords }: Props) => {
       showToast("Already guessed!", 0);
       return;
     }
+    setGuessColours((prev) => [...prev, getGuessColours(guess, gameData)]);
 
     const orderedGuess = words.filter((word) => guess.includes(word));
     orderedGuess.forEach((word, idx) =>
       setTimeout(() => setAnimatedChecking((prev) => [...prev, word]), idx * 75)
     );
+
     setTimeout(() => {
       setAnimatedChecking([]);
 
@@ -68,16 +86,22 @@ const Game = ({ gameData, initialWords }: Props) => {
       if (correctAnswer) {
         setWords(words.filter((word) => !guess.includes(word)));
         setSelected([]);
-        setCorrect([...correct, correctAnswer]);
+        setCorrect((prev) => {
+          const newCorrect = [...prev, correctAnswer];
+          if (newCorrect.length === 4) endGame(false);
+          return newCorrect;
+        });
       } else {
         setGuessed([...guessed, guess]);
+
         setAnimatedFail(guess);
         setTimeout(() => setAnimatedFail([]), 200);
+
         if (exactlyThreeMatches(guess, gameData)) showToast("One away...", 0);
 
         setAttempts((prev) => {
           const newAttempts = prev - 1;
-          if (newAttempts === 0) endGame();
+          if (newAttempts === 0) endGame(true);
           return newAttempts;
         });
       }
@@ -103,6 +127,12 @@ const Game = ({ gameData, initialWords }: Props) => {
         onClickSubmit={onClickSubmit}
       />
       <Toast visible={toastVisible} text={toastText} />
+      <ResultsModal
+        visible={showResults}
+        onClickClose={() => setShowResults(false)}
+        date={date}
+        guessColours={guessColours}
+      />
     </div>
   );
 };

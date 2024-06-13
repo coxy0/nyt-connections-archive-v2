@@ -5,7 +5,7 @@ interface Props {
   visible: boolean;
   onClickClose: () => void;
   date: string;
-  guessColours: string[];
+  guessColours: string[][];
 }
 
 const ResultsModal = ({ visible, onClickClose, date, guessColours }: Props) => {
@@ -20,7 +20,9 @@ const ResultsModal = ({ visible, onClickClose, date, guessColours }: Props) => {
               <div
                 key={colIdx}
                 className={`${styles.resultsEmoji} ${
-                  styles[guessColours[rowIdx][colIdx]]
+                  guessColours.length === 4
+                    ? styles[guessColours[rowIdx][colIdx]]
+                    : ""
                 }`}
               ></div>
             ))}

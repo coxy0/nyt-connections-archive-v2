@@ -11,6 +11,20 @@ export const isAnswerCorrect = (
   return null;
 };
 
+export const getGuessColours = (
+  words: string[],
+  answers: AnswersData[]
+): string[] => {
+  const colours: string[] = [];
+  const options = ["yellow", "green", "blue", "purple"];
+
+  for (const word of words)
+    for (const answer of answers)
+      if (answer.members.includes(word)) colours.push(options[answer.level]);
+
+  return colours;
+};
+
 export const exactlyThreeMatches = (
   words: string[],
   answers: AnswersData[]

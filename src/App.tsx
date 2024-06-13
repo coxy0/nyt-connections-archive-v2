@@ -15,7 +15,7 @@ const App = () => {
   return (
     <>
       <HelpModal visible={showHelp} onClickClose={() => setShowHelp(false)} />
-      <Game gameData={gameData} initialWords={words} />
+      <Game date={date} gameData={gameData} initialWords={words} />
     </>
   );
 };
