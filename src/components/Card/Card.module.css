@@ -5,7 +5,7 @@
   height: var(--card-height);
   display: grid;
   place-items: center;
-  font-size: 1.25em;
+  font-size: 1.125em;
   font-weight: bold;
   background-color: #f0f0f0;
   border-radius: 0.375rem;

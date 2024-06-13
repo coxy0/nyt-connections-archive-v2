@@ -35,19 +35,9 @@ const Game = ({ date, gameData, initialWords }: Props) => {
   const [guessColours, setGuessColours] = useState<string[][]>([]);
   const [showResults, setShowResults] = useState(false);
 
-  const showToast = (text: string, delay: number) => {
-    setTimeout(() => {
-      setToastVisible(true);
-      setToastText(text);
-      setTimeout(() => {
-        setToastVisible(false);
-        setToastText("");
-      }, 2500);
-    }, delay);
-  };
-
   const endGame = (failed: boolean) => {
     if (failed) showToast("Next time", 1500);
+    console.info(guessColours);
 
     setTimeout(() => {
       setWords([]);
@@ -60,7 +50,20 @@ const Game = ({ date, gameData, initialWords }: Props) => {
     }, 2500);
   };
 
+  const showToast = (text: string, delay: number) => {
+    setTimeout(() => {
+      setToastVisible(true);
+      setToastText(text);
+      setTimeout(() => {
+        setToastVisible(false);
+        setToastText("");
+      }, 2500);
+    }, delay);
+  };
+
   const onCardClick = (word: string) => {
+    if (animatedChecking.length || animatedFail.length) return;
+
     if (selected.includes(word))
       setSelected(selected.filter((selectedWord) => selectedWord !== word));
     else if (selected.length !== 4) setSelected([...selected, word]);

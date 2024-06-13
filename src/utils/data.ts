@@ -10,6 +10,15 @@ interface DataEntry {
   answers: AnswersData[];
 }
 
+export const getAllDates = (data: DataEntry[]): string[] => {
+  const datesSet = new Set<string>();
+  data.forEach((entry) => {
+    datesSet.add(entry.date);
+  });
+
+  return Array.from(datesSet);
+};
+
 export const getDataForDate = (
   data: DataEntry[],
   date: string
